@@ -1,1 +1,1 @@
-web: gunicorn jeanweb.wsgi
+web: gunicorn mc_backend.wsgi
