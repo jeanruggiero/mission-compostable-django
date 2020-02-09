@@ -14,4 +14,4 @@ ALLOWED_HOSTS = [os.environ.get('ALLOWED_HOSTS'),
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles')]
