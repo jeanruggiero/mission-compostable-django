@@ -3,10 +3,16 @@
 {% load static %}
 
 {% block content %}
+    <img id="logo" src="{% static "images/logonew.png" %}" alt="Mission Compostable logo" />
+    <h3>Upload an image of a spoon to tell if it's compostable!</h3>
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    <input type="file" name="myfile">
-    <button type="submit">Upload</button>
+      <label for="file-upload" class="custom-file-upload">
+    Select File
+</label>
+<input id="file-upload" type="file" name="myfile"/>
+
+    <input type="submit" value="Upload"></input>
   </form>
 
 {% endblock %}
