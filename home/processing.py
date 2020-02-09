@@ -1,7 +1,6 @@
-from skimage import io, filters
+from skimage import io, filters, color
 import numpy as np
 from skimage.color import rgb2gray
-import cv2
 from collections import deque
 
 
@@ -66,36 +65,24 @@ def find_lightest_area_value(filename, area_size):
 
 
 def find_mean_brightness(filename):
-    img = cv2.imread(filename)
-    rows, cols = img.shape[0:2]
-    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
-    retval, thresh = cv2.threshold(gray_img, 127, 255, 0)
-    img_contours, _ = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-    contours = cv2.drawContours(img, img_contours, -1, (0, 255, 0))
-    _, thresh = cv2.threshold(gray_img, 127, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    img_contours = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[-2]
-    img_contours = sorted(img_contours, key=cv2.contourArea)
-
-    for i in img_contours:
-        if cv2.contourArea(i) > 100:
-            break
-
-    mask = np.zeros(img.shape[:2], np.uint8)
-
-    cv2.drawContours(mask, [i], -1, 255, -1)
-    new_img = cv2.bitwise_and(img, img, mask=mask)
-    grayscale = rgb2gray(new_img)
+    image = io.imread(filename)
+    blur = color.rgb2gray(image)
+    blur = filters.gaussian(blur, sigma=np.std(blur), multichannel=False)
+    t = filters.threshold_otsu(blur)
+    mask = blur > t
+    sel = np.zeros_like(image)
+    sel[mask] = image[mask]
+    grayscale = rgb2gray(sel)
+    rows,cols = grayscale.shape[0:2]
 
     listy = []
-    for x in range(1, rows):
-        for y in range(1, cols):
-            pixel = grayscale[x, y]
+    for x in range (1,rows):
+        for y in range (1,cols):
+            pixel = grayscale[x,y]
             if pixel > 0.0:
                 listy.append(pixel)
 
     mean = np.mean(listy)
-
     return mean, np.max(listy)
 
 
