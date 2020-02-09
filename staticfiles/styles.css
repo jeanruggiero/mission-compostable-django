@@ -83,7 +83,7 @@ div#compost {
     display: inline-block;
     width: 100%;
     height: 801px;
-    background-image: url("/staticfiles/images/leaves.jpg")
+    background-image: url("/static/images/leaves.jpg")
 
 }
 
@@ -97,7 +97,7 @@ div#trash {
     display: inline-block;
     width: 100%;
     height: 801px;
-    background-image: url("/staticfiles/images/landfill.jpg");
+    background-image: url("/static/images/landfill.jpg");
     background-repeat: no-repeat;
     background-size:100% 100%;
 }
