@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    {% if is_compostable %}
+        <div id="compost">
+            <p>It's Compost!</p>
+        </div>
+
+    {% else %}
+        <div id="trash">
+            <p>It's Trash</p>
+        </div>
+
+    {% endif %}
+
+{% endblock %}
