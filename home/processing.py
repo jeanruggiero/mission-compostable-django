@@ -2,7 +2,6 @@ from skimage import io, filters
 import numpy as np
 from skimage.color import rgb2gray
 import cv2
-from scipy import stats
 
 from collections import deque
 
